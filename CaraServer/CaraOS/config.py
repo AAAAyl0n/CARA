@@ -1,4 +1,5 @@
 import os
+import threading
 
 class Config:
     SERVER_PORT = 5004
@@ -14,3 +15,5 @@ class Config:
     WINDOW_SIZE = 10  # 滑动窗口大小
     LAST_SOUND_TIME = 0
     TEMP_PCM_FILE = os.path.join(TEMP_AUDIO_DIR, 'temp_audio.pcm')
+    LOCK = threading.Lock()  # 定义一个锁对象
+
