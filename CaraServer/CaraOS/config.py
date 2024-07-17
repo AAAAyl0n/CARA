@@ -3,7 +3,7 @@ import os
 class Config:
     SERVER_PORT = 5004
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'CARA112233'
-    OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY') or 'sk-proj-lMLyJOZ9XxRZbYbDudDnT3BlbkFJ4PnDF2ZXFaLXfFxHIIvf'
+    OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
     # 设置OPENAI_API_KEY为你的OpenAI API密钥    
     os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///site.db'
