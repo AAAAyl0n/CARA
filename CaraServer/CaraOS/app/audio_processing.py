@@ -9,6 +9,9 @@ import wave
 from pydub import AudioSegment
 from openai import OpenAI
 from scipy.io import wavfile
+import json
+import logging
+from datetime import datetime
 
 client = OpenAI()
 
@@ -73,6 +76,29 @@ def convert_wav_to_mp3(wav_file, mp3_file):
         logging.error(f"Error converting WAV to MP3: {e}")
 
 def process_audio_queue(app):
+    def append_to_json_file(transcription_text, file_type):
+        json_file_path = 'transcriptions.json'
+        
+        new_record = {
+            'timestamp': datetime.utcnow().isoformat(),
+            'type': file_type,
+            'text': transcription_text
+        }
+        
+        if os.path.exists(json_file_path):
+            with open(json_file_path, 'r+') as json_file:
+                try:
+                    data = json.load(json_file)
+                    data.append(new_record)
+                    json_file.seek(0)
+                    json.dump(data, json_file, indent=4)
+                except json.JSONDecodeError:
+                    json_file.seek(0)
+                    json.dump([new_record], json_file, indent=4)
+        else:
+            with open(json_file_path, 'w') as json_file:
+                json.dump([new_record], json_file, indent=4)
+
     while True:
         try:
             wav_file = audio_queue.get()
@@ -93,6 +119,9 @@ def process_audio_queue(app):
                     file=audio_file
                 )
                 logging.info(transcription.text)
+                #这里写入json文件
+                append_to_json_file(transcription.text, "voice")
+
             os.remove(wav_file)
             os.remove(mp3_file)
         except Exception as e:

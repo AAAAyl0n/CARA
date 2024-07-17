@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/Users/ayl0n/Deepflow/Cara/CaraConnection/myenv"
+set -gx VIRTUAL_ENV "/Users/ayl0n/Deepflow/Cara/CaraConnection/CaraServer/myenv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH
