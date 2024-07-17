@@ -2,7 +2,7 @@
 
 <div style="text-align: center;">
     <a href="https://x.com/YehBowen">
-        <img src="https://img.shields.io/twitter/follow/Ayl?logo=X&color=%20%23f5f5f5" alt="Follow on X">
+        <img src="https://img.shields.io/twitter/follow/Ayl0n?logo=X&color=%20%23f5f5f5" alt="Follow on X">
     </a>
 </div>
 
