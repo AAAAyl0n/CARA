@@ -1,0 +1,14 @@
+current directory: /Users/zzy/Desktop/code/xvision/vendor/bundle/ruby/2.6.0/gems/json-2.7.2/ext/json
+/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/bin/ruby -I /System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/lib/ruby/2.6.0 -r ./siteconf20240712-64123-gmckb1.rb extconf.rb
+/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/lib/ruby/2.6.0/universal-darwin23/rbconfig.rb:21: warning: Insecure world writable dir /opt/homebrew/lib in PATH, mode 040777
+creating Makefile
+
+current directory: /Users/zzy/Desktop/code/xvision/vendor/bundle/ruby/2.6.0/gems/json-2.7.2/ext/json
+make "DESTDIR=" clean
+
+current directory: /Users/zzy/Desktop/code/xvision/vendor/bundle/ruby/2.6.0/gems/json-2.7.2/ext/json
+make "DESTDIR="
+make: Nothing to be done for `all'.
+
+current directory: /Users/zzy/Desktop/code/xvision/vendor/bundle/ruby/2.6.0/gems/json-2.7.2/ext/json
+make "DESTDIR=" install

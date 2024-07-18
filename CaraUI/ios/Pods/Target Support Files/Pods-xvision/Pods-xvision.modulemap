@@ -1,0 +1,6 @@
+module Pods_xvision {
+  umbrella header "Pods-xvision-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "react-native-ble-manager",
+  "summary": "A BLE module for react native.",
+  "version": "11.5.5",
+  "authors": {
+    "Innove": "https://github.com/innoveit"
+  },
+  "homepage": "https://github.com/innoveit/react-native-ble-manager",
+  "license": "Apache-2.0",
+  "platforms": {
+    "ios": "10.0"
+  },
+  "source": {
+    "git": "https://github.com/innoveit/react-native-ble-manager.git"
+  },
+  "source_files": "ios/**/*.{h,c,cc,cpp,m,mm,swift}",
+  "dependencies": {
+    "React-Core": [
+
+    ]
+  }
+}

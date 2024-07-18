@@ -1,0 +1,1 @@
+../../../Target Support Files/react-native-ble-manager/react-native-ble-manager-umbrella.h

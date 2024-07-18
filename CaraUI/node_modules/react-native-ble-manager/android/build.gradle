@@ -1,0 +1,59 @@
+buildscript {
+	// The Android Gradle plugin is only required when opening the android folder stand-alone.
+	// This avoids unnecessary downloads and potential conflicts when the library is included as a
+	// module dependency in an application project.
+	if (project == rootProject) {
+		repositories {
+			google()
+			jcenter()
+		}
+
+		dependencies {
+			classpath("com.android.tools.build:gradle:7.3.1")
+		}
+	}
+}
+apply plugin: 'com.android.library'
+
+def safeExtGet(prop, fallback) {
+	rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+}
+
+android {
+	def agpVersion = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION
+	if (agpVersion.tokenize('.')[0].toInteger() >= 7) {
+	  namespace "it.innove"
+	}
+	
+	compileSdk safeExtGet("compileSdk", 34)
+
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_9
+		targetCompatibility JavaVersion.VERSION_1_9
+	}
+
+	defaultConfig {
+		minSdkVersion safeExtGet("minSdkVersion", 21)
+		targetSdk safeExtGet("targetSdk", 34)
+	}
+	lintOptions {
+		abortOnError false
+	}
+}
+
+repositories {
+	mavenCentral()
+	google()
+	jcenter()
+	maven {
+		// All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+		//url "$rootDir/../node_modules/react-native/android"
+		url "$rootDir/../example/node_modules/react-native/android"
+	}
+}
+
+
+dependencies {
+	implementation "com.facebook.react:react-native:+"
+//	implementation "org.jetbrains.trove4j: trove4j: 20160824"
+}

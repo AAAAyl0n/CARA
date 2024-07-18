@@ -62,7 +62,7 @@ def register():
     data = request.get_json()
     if User.query.filter_by(email=data['email']).first() or User.query.filter_by(username=data['username']).first():
         return jsonify({'error': 'User already exists'}), 400
-    user = User(username=data['username'], email=data['email'], password=data['password'])
+    user = User(username=data['username'], email=data['email'], password=data['password'], avatar_url=data['avatar_url'])
     db.session.add(user)
     db.session.commit()
     return jsonify({'message': 'User registered successfully'}), 201
@@ -99,9 +99,19 @@ def get_messages():
     results = []
     for msg in messages:
         sender = User.query.get(msg.user_id)
-        results.append({'content': msg.content, 'date_posted': msg.date_posted, 'sender': sender.username})
+        results.append({'content': msg.content, 'date_posted': msg.date_posted, 'sender': sender.username, 'avatar_url': sender.avatar_url})
     
     return jsonify(results), 200
+
+@bp.route('/api/get_info', methods=['GET'])
+@login_required
+def get_info():
+    return jsonify({'username': current_user.username, 'email': current_user.email, 'avatar_url': current_user.avatar_url}), 200
+
+@bp.route('/api/get_cara_info', methods=['GET'])
+def get_cara_info():
+    cara = User.query.filter_by(username='Cara').first()
+    return jsonify({'username': cara.username, 'email': cara.email, 'avatar_url': cara.avatar_url}), 200
 
 @bp.route('/api/admin/users', methods=['GET'])
 @login_required
@@ -109,7 +119,7 @@ def admin_get_users():
     if current_user.username != 'admin':
         return jsonify({'error': 'Access denied'}), 403
     users = User.query.all()
-    return jsonify([{'username': user.username, 'email': user.email} for user in users]), 200
+    return jsonify([{'username': user.username, 'email': user.email, 'avatar_url': user.avatar_url} for user in users]), 200
 
 @bp.route('/api/upload_image', methods=['POST'])
 def upload_image():
@@ -156,5 +166,17 @@ def answer_question():
     gm = GPT_Model(current_app)
     messages = Message.query.all()
     answer = gm.answer_by_knowledge(messages, data['question'], current_app.config['CACHE_ID'])
+    # 以Cara的身份发送消息
+    message = Message(content=answer, user_id=User.query.filter_by(username='Cara').first().id)
+    db.session.add(message)
+    db.session.commit()
     return jsonify({'answer': answer}), 200
+
+@bp.route('/api/delete_all_message', methods=['GET'])
+def delete_message():
+    messages = Message.query.all()
+    for msg in messages:
+        db.session.delete(msg)
+    db.session.commit()
+    return jsonify({'message': 'All messages deleted'}), 200
     

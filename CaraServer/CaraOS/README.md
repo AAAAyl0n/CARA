@@ -1,4 +1,4 @@
-# Flask API
+# flask_test# Flask API
 
 The address of `BASE_URL` :
 * In California: [https://cara.zeabur.app](https://cara.zeabur.app)
@@ -21,7 +21,8 @@ The address of `BASE_URL` :
 	{
 		"email": "your email address",
 		"username": "your user name",
-		"password": "your password"
+		"password": "your password",
+		"avatar_url": "your avatar url"
 	}
 	```
 
@@ -104,3 +105,9 @@ The address of `BASE_URL` :
 	{
 		"question": "your question"
 	}
+
+### /api/delete_all_message
+
+* function: delete add messages
+* method: GET
+* data: none

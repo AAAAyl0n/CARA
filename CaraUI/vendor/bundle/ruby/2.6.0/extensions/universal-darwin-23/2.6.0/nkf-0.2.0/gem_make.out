@@ -1,0 +1,17 @@
+current directory: /Users/zzy/Desktop/code/xvision/vendor/bundle/ruby/2.6.0/gems/nkf-0.2.0/ext/nkf
+/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/bin/ruby -I /System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/lib/ruby/2.6.0 -r ./siteconf20240712-64123-1yeulfu.rb extconf.rb
+/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/lib/ruby/2.6.0/universal-darwin23/rbconfig.rb:21: warning: Insecure world writable dir /opt/homebrew/lib in PATH, mode 040777
+creating Makefile
+
+current directory: /Users/zzy/Desktop/code/xvision/vendor/bundle/ruby/2.6.0/gems/nkf-0.2.0/ext/nkf
+make "DESTDIR=" clean
+
+current directory: /Users/zzy/Desktop/code/xvision/vendor/bundle/ruby/2.6.0/gems/nkf-0.2.0/ext/nkf
+make "DESTDIR="
+compiling nkf.c
+linking shared-object nkf.bundle
+ld: warning: search path '/AppleInternal/Library/BuildRoots/91a344b1-f985-11ee-b563-fe8bc7981bff/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.Internal.sdk/usr/local/lib' not found
+
+current directory: /Users/zzy/Desktop/code/xvision/vendor/bundle/ruby/2.6.0/gems/nkf-0.2.0/ext/nkf
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 nkf.bundle ./.gem.20240712-64123-10b8ip3

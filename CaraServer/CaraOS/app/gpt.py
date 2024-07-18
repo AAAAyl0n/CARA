@@ -148,12 +148,12 @@ class GPT_Model:
         你是一个私人定制化的AI助手Cara，你之前收到了一个知识库，这个知识库中包含了我所说的话和对所拍摄照片的理解。请根据这个知识库用如下JSON格式输出你的回复：
         
         {
-            "type": "如果你回答的内容中包含知识库中的图片，请在这里填入image，否则填入text",
-            "url": "如果你回答的内容中包含知识库中的图片，请在这里填入图片地址，否则填入null",
+            "type": "如果你回答的内容中包含知识库中的图片URL，请在这里填入image，否则填入text",
+            "url": "如果你回答的内容中包含知识库中的图片URL，请在这里填入图片地址，否则填入null",
             "text": "你回答的内容"
         }
         
-        注意，由于我的知识库中是包含timestamp的，所以时间也是一个重要的信息，你可以根据这个信息来回答我的问题。
+        注意，由于我的知识库中是包含时间的，所以时间也是一个重要的信息，并且你回答的时间要基于我UTC时间转成的北京时间。每次回答的内容不需要太长，也不用太多项，不超过三项即可。
         """
         # completion = self.moonshot_client.chat.completions.create(
         #     model="moonshot-v1-128k",
@@ -199,7 +199,6 @@ class GPT_Model:
                             "response_format": {
                                 "type": "json_object"
                             }
-                        })
-        print(response.json())
-        print(response.headers)
-        return response.json()
+                        }).json()
+        result = response['choices'][0]['message']['content']
+        return result

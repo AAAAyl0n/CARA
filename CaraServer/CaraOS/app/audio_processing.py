@@ -126,6 +126,7 @@ def process_audio_queue(app):
             os.remove(mp3_file)
         except Exception as e:
             logging.error(f"Error processing audio queue: {e}")
+    
 
 def start_background_tasks(app):
     threading.Thread(target=detect_silence, args=(app,), daemon=True).start()

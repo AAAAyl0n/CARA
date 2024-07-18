@@ -1,0 +1,4 @@
+import type { ILayoutAnimationBuilder, LayoutAnimationFunction } from './layoutReanimation';
+import type { StyleProps } from './commonTypes';
+import type { NestedArray } from './createAnimatedComponent/commonTypes';
+export declare function maybeBuild(layoutAnimationOrBuilder: ILayoutAnimationBuilder | LayoutAnimationFunction | Keyframe, style: NestedArray<StyleProps> | undefined, displayName: string): LayoutAnimationFunction | Keyframe;

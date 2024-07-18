@@ -1,0 +1,6 @@
+module react_native_ble_manager {
+  umbrella header "react-native-ble-manager-umbrella.h"
+
+  export *
+  module * { export * }
+}
