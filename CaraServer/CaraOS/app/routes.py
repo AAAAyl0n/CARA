@@ -7,7 +7,10 @@ import numpy as np
 import os
 import logging
 import threading
-
+from app.cos import CosBucket
+from app.gpt import GPT_Model
+import json
+from datetime import datetime, timezone
 bp = Blueprint('main', __name__)
 
 window = []
@@ -28,6 +31,10 @@ def is_silent(data, silence_threshold):
     except Exception as e:
         logging.error(f"Error in calculating average absolute value: {e}")
         return True, 0
+    
+@bp.route('/')
+def index():
+    return 'Hello, Cara!'
 
 @bp.route('/audio_stream', methods=['POST'])
 def audio_stream():
@@ -87,8 +94,14 @@ def send_message():
 @bp.route('/api/messages', methods=['GET'])
 @login_required
 def get_messages():
-    messages = Message.query.filter_by(user_id=current_user.id).all()
-    return jsonify([{'content': msg.content, 'date_posted': msg.date_posted} for msg in messages]), 200
+    # 获取数据库中的所有用户的所有message
+    messages = Message.query.all()
+    results = []
+    for msg in messages:
+        sender = User.query.get(msg.user_id)
+        results.append({'content': msg.content, 'date_posted': msg.date_posted, 'sender': sender.username})
+    
+    return jsonify(results), 200
 
 @bp.route('/api/admin/users', methods=['GET'])
 @login_required
@@ -97,3 +110,51 @@ def admin_get_users():
         return jsonify({'error': 'Access denied'}), 403
     users = User.query.all()
     return jsonify([{'username': user.username, 'email': user.email} for user in users]), 200
+
+@bp.route('/api/upload_image', methods=['POST'])
+def upload_image():
+    print(current_app.config['TEMP_IMAGE_DIR'])
+    image_file = request.files['image']
+    image_name = image_file.filename
+    image_path = f"{current_app.config['TEMP_IMAGE_DIR']}/{image_name}"
+    image_file.save(image_path)
+    bucket = CosBucket(secret_id=current_app.config['COS_SECRET_ID'], secret_key=current_app.config['COS_SECRET_KEY'], region=current_app.config['COS_REGION'])
+    image_url = bucket.upload_file(image_path)
+    return jsonify({'image_url': image_url}), 200
+
+@bp.route('/api/add_knowledge', methods=['POST'])
+def add_knowledge():
+    data = request.get_json()
+    knowledge_base = json.loads(open(current_app.config['KNOWLEDGE_BASE'], 'r').read())
+    gm = GPT_Model(current_app)
+    # 筛选出近五分钟内的数据
+    latest_knowledge_base = [
+        item for item in knowledge_base if (datetime.utcnow() - datetime.fromisoformat(item['timestamp'])).total_seconds() < 300
+    ]
+    data_text = gm.ask_image(data['url'], latest_knowledge_base)
+    knowledge_item = {
+        'timestamp': datetime.utcnow().isoformat(),
+        'type': 'image',
+        'url': data['url'],
+        'text': data_text,
+    }
+    knowledge_base.append(knowledge_item)
+    with open(current_app.config['KNOWLEDGE_BASE'], 'w') as f:
+        json.dump(knowledge_base, f, indent=4)
+    # 更新cache
+    gm.update_cache(knowledge_base, current_app.config['CACHE_ID'])
+    return jsonify({'message': 'Knowledge added successfully'}), 200
+
+@bp.route('/api/get_knowledge', methods=['GET'])
+def get_knowledge():
+    knowledge_base = json.loads(open(current_app.config['KNOWLEDGE_BASE'], 'r').read())
+    return jsonify(knowledge_base), 200
+
+@bp.route('/api/answer_question', methods=['POST'])
+def answer_question():
+    data = request.get_json()
+    gm = GPT_Model(current_app)
+    messages = Message.query.all()
+    answer = gm.answer_by_knowledge(messages, data['question'], current_app.config['CACHE_ID'])
+    return jsonify({'answer': answer}), 200
+    
