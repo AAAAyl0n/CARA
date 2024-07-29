@@ -2,4 +2,4 @@
 
 Cara is an AI Ai-powered hardware.
 
-Demo video link: https://www.bilibili.com/video/BV1WE4m1R7B9/?vd_source=6993c687c4c026d4a88b3e5712b40113
+Demo video link: https://www.bilibili.com/video/BV1nW42197y5/#reply234126454944
