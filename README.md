@@ -1,5 +1,3 @@
-[update] Check the deck https://humanify.org/cara-intro-zh
-
 [update] New design of appearance：https://www.bilibili.com/video/BV1pVHCezEuq
 ![https://tannin-1316822731.cos.ap-nanjing.myqcloud.com/2024-07-18-221057.jpg](https://tannin-1316822731.cos.ap-nanjing.myqcloud.com/2024-07-18-221057.jpg)![https://tannin-1316822731.cos.ap-nanjing.myqcloud.com/2024-07-18-221112.jpg](https://tannin-1316822731.cos.ap-nanjing.myqcloud.com/2024-07-18-221112.jpg)![https://tannin-1316822731.cos.ap-nanjing.myqcloud.com/2024-07-18-221136.jpg](https://tannin-1316822731.cos.ap-nanjing.myqcloud.com/2024-07-18-221136.jpg)![https://tannin-1316822731.cos.ap-nanjing.myqcloud.com/2024-07-18-221208.jpg](https://tannin-1316822731.cos.ap-nanjing.myqcloud.com/2024-07-18-221208.jpg)![https://tannin-1316822731.cos.ap-nanjing.myqcloud.com/2024-07-18-221222.jpg](https://tannin-1316822731.cos.ap-nanjing.myqcloud.com/2024-07-18-221222.jpg)
 
